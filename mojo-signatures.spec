@@ -71,7 +71,11 @@ for sig in java15 java16;do
    pushd $sig
       install -pm 644 pom.xml %{buildroot}%{_mavenpomdir}/JPP.%{name}-$sig.pom
       install -pm 644 target/*signature %{buildroot}%{_javadir}/%{name}/$sig-%{version}.signature
-      %add_maven_depmap org.codehaus.mojo.signature $sig %{version} JPP/%{name} $sig
+%if 0%{?fedora}
+      %add_to_maven_depmap org.codehaus.mojo.signature $sig %{version} JPP/%{name} $sig
+%else
+      %add_maven_depmap JPP.%{name}-$sig.pom
+%endif
    popd
 done
 
