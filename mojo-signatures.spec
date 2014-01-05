@@ -1,9 +1,10 @@
+%{?_javapackages_macros:%_javapackages_macros}
 Name:           mojo-signatures
 Version:        1.1
-Release:        0.5.svn11457
+Release:        0.11.svn11457.0%{?dist}
 Summary:        Mojo API signatures project
 
-Group:          Development/Java
+
 License:        MIT
 URL:            http://mojo.codehaus.org/
 
@@ -21,7 +22,7 @@ BuildArch:      noarch
 # specific release required for objectweb-asm dependency in pom.xml
 BuildRequires:  animal-sniffer >= 1.6-3
 BuildRequires:  jpackage-utils
-BuildRequires:  maven
+BuildRequires:  maven-local
 BuildRequires:  maven-enforcer-plugin
 BuildRequires:  maven-site-plugin
 BuildRequires:  maven-install-plugin
@@ -36,11 +37,7 @@ BuildRequires:  mojo-parent
 
 # specific release required for handling "signature" packaging
 Requires:       maven
-Requires:       mojo-parent
-
 Requires:       jpackage-utils
-Requires(post):       jpackage-utils
-Requires(postun):     jpackage-utils
 
 %description
 The API Signatures project contains a number of projects which
@@ -81,18 +78,46 @@ done
 (cd $RPM_BUILD_ROOT%{_javadir}/%{name} && for sig in *-%{version}*; do ln -sf ${sig} `echo $sig| sed "s|-%{version}||g"`; done)
 
 
-%post
-%update_maven_depmap
-
-%postun
-%update_maven_depmap
-
-
 %files
-%defattr(-,root,root,-)
 %{_mavenpomdir}/*
 %{_mavendepmapfragdir}/*
 %{_javadir}/%{name}
 
 
 
+%changelog
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-0.11.svn11457
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
+* Wed Feb 06 2013 Java SIG <java-devel@lists.fedoraproject.org> - 1.1-0.10.svn11457
+- Update for https://fedoraproject.org/wiki/Fedora_19_Maven_Rebuild
+- Replace maven BuildRequires with maven-local
+
+* Tue Nov 27 2012 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1-0.9.svn11457
+- Remove excessive requires: mojo-parent
+
+* Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-0.8.svn11457
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
+* Wed May 23 2012 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1-0.7.svn11457
+- Port to Java 1.7.0
+- Resolves 824417
+
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-0.6.svn11457
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
+* Thu Jun 9 2011 Alexander Kurtakov <akurtako@redhat.com> 1.1-0.5.svn11457
+- Build with maven 3.x.
+- Guidelines fixes.
+
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-0.4.svn11457
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Mon Oct 11 2010 Stanislav Ochotnicky <sochotnicky@redhat.com> - 1.1-0.3.svn11457
+- Add mojo-parent to Requires
+
+* Thu Sep 30 2010 Stanislav Ochotnicky <sochotnicky@redhat.com> - 1.1-0.2.svn11457
+- Add mojo-parent to BRs
+
+* Fri Sep 17 2010 Stanislav Ochotnicky <sochotnicky@redhat.com> - 1.1-0.1.svn11457
+- Initial version of package
