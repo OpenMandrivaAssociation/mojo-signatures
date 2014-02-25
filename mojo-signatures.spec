@@ -1,8 +1,4 @@
 %{?_javapackages_macros:%_javapackages_macros}
-%if 0%{?fedora}
-%else
-Epoch:          1
-%endif
 Name:           mojo-signatures
 Version:        1.1
 Release:        0.11.svn11457.2%{?dist}
