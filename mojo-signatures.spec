@@ -9,7 +9,6 @@
 %global __find_requires /bin/sed -e 's/.*//'
 %global __find_provides /bin/sed -e 's/.*//'
 
-Epoch:          1
 Name:		mojo-signatures
 Version:	1.1
 Release:	0.11.svn11457.1
